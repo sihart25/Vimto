@@ -1,0 +1,402 @@
+<?xml version='1.0' standalone='yes' ?>
+<LVData xmlns="http://www.ni.com/LVData">
+<Version>15.0.1f1</Version>
+<Cluster>
+<Name>Acquisition and Logging </Name>
+<NumElts>33</NumElts>
+<DBL>
+<Name>Data Rate (Hz)</Name>
+<Val>1000.00000000000000</Val>
+</DBL>
+<I32>
+<Name>Samples per Read</Name>
+<Val>1000</Val>
+</I32>
+<I32>
+<Name>Number of Reads to Save</Name>
+<Val>6000</Val>
+</I32>
+<String>
+<Name>Data File Name</Name>
+<Val>Tram19_Data</Val>
+</String>
+<I32>
+<Name>Number of Channels</Name>
+<Val>5</Val>
+</I32>
+<Array>
+<Name>Channel Scale Array</Name>
+<Dimsize>5</Dimsize>
+<DBL>
+<Name>Scale</Name>
+<Val>1.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>Scale</Name>
+<Val>1.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>Scale</Name>
+<Val>1.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>Scale</Name>
+<Val>1.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>Scale</Name>
+<Val>1.00000000000000</Val>
+</DBL>
+</Array>
+<Array>
+<Name>Channel Names Array</Name>
+<Dimsize>5</Dimsize>
+<String>
+<Name>String</Name>
+<Val>Slot0/ai0</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Slot0/ai1</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Slot0/ai2</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Slot0/ai3</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Slot1/ai3</Val>
+</String>
+</Array>
+<Array>
+<Name>TDMS Properties</Name>
+<Dimsize>8</Dimsize>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Enterprise</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>VIMTO</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Author</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>James Talbot</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Operator</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>CSIC</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>TestSystem</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>[SystemName]</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Site</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>[Location]</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Line</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>[Line]</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Machine</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>[MachineName]</Val>
+</String>
+</Cluster>
+<Cluster>
+<Name>TDMS Properties</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Name</Name>
+<Val>Description</Val>
+</String>
+<String>
+<Name>Value</Name>
+<Val>[Description]</Val>
+</String>
+</Cluster>
+</Array>
+<Boolean>
+<Name>Log Continuously</Name>
+<Val>1</Val>
+</Boolean>
+<U32>
+<Name>timeout (10sec)</Name>
+<Val>10000</Val>
+</U32>
+<U8>
+<Name>termination char (0xA = '\n' = LF)</Name>
+<Val>10</Val>
+</U8>
+<Boolean>
+<Name>Enable Termination
+Char (T)</Name>
+<Val>1</Val>
+</Boolean>
+<U32>
+<Name>baud rate (9600)</Name>
+<Val>4800</Val>
+</U32>
+<U16>
+<Name>data bits (8)</Name>
+<Val>8</Val>
+</U16>
+<EW>
+<Name>parity (0:none)</Name>
+<Choice>None</Choice>
+<Choice>Odd</Choice>
+<Choice>Even</Choice>
+<Choice>Mark</Choice>
+<Choice>Space</Choice>
+<Val>0</Val>
+</EW>
+<U16>
+<Name>stop bits (10: 1 bit)</Name>
+<Val>10</Val>
+</U16>
+<U16>
+<Name>flow control (0:none)</Name>
+<Val>0</Val>
+</U16>
+<String>
+<Name>VISA resource name</Name>
+<Val>USB_GPS</Val>
+</String>
+<Array>
+<Name>Channel Types Array</Name>
+<Dimsize>5</Dimsize>
+<String>
+<Name>String</Name>
+<Val>Accel</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Accel</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Accel</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Accel</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>Accel</Val>
+</String>
+</Array>
+<String>
+<Name>DataUserName</Name>
+<Val>Tram1</Val>
+</String>
+<String>
+<Name>Passwd</Name>
+<Val>Vimto1234</Val>
+</String>
+<String>
+<Name>Local IP</Name>
+<Val>192.168.200.40</Val>
+</String>
+<String>
+<Name>Local Directory</Name>
+<Val>/c/media</Val>
+</String>
+<String>
+<Name>Remote Directory</Name>
+<Val>C:\testdata</Val>
+</String>
+<Array>
+<Name>Channel MAX Array</Name>
+<Dimsize>5</Dimsize>
+<DBL>
+<Name>MAX</Name>
+<Val>99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MAX</Name>
+<Val>99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MAX</Name>
+<Val>99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MAX</Name>
+<Val>99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MAX</Name>
+<Val>99.00000000000000</Val>
+</DBL>
+</Array>
+<Array>
+<Name>Channel Sensitivity Array</Name>
+<Dimsize>5</Dimsize>
+<DBL>
+<Name>Sensitivity</Name>
+<Val>49.92000000000000</Val>
+</DBL>
+<DBL>
+<Name>Sensitivity</Name>
+<Val>49.75000000000000</Val>
+</DBL>
+<DBL>
+<Name>Sensitivity</Name>
+<Val>48.18000000000000</Val>
+</DBL>
+<DBL>
+<Name>Sensitivity</Name>
+<Val>50.23000000000000</Val>
+</DBL>
+<DBL>
+<Name>Sensitivity</Name>
+<Val>49.17000000000000</Val>
+</DBL>
+</Array>
+<Array>
+<Name>Channel MIN Array</Name>
+<Dimsize>5</Dimsize>
+<DBL>
+<Name>MIN</Name>
+<Val>-99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MIN</Name>
+<Val>-99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MIN</Name>
+<Val>-99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MIN</Name>
+<Val>-99.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>MIN</Name>
+<Val>-99.00000000000000</Val>
+</DBL>
+</Array>
+<Array>
+<Name>Channel Iex Array</Name>
+<Dimsize>5</Dimsize>
+<DBL>
+<Name>Iex</Name>
+<Val>4.00000000000000E-3</Val>
+</DBL>
+<DBL>
+<Name>Iex</Name>
+<Val>4.00000000000000E-3</Val>
+</DBL>
+<DBL>
+<Name>Iex</Name>
+<Val>4.00000000000000E-3</Val>
+</DBL>
+<DBL>
+<Name>Iex</Name>
+<Val>4.00000000000000E-3</Val>
+</DBL>
+<DBL>
+<Name>Iex</Name>
+<Val>4.00000000000000E-3</Val>
+</DBL>
+</Array>
+<Array>
+<Name>Channel Titles Array</Name>
+<Dimsize>5</Dimsize>
+<String>
+<Name>String</Name>
+<Val>P2_49_92slot1_ai0</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>p4_49_75slot1_ai1</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>P1_48_18slot1_ai2</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>p3_50_23slot1_ai3</Val>
+</String>
+<String>
+<Name>String</Name>
+<Val>t1_49_16slot2_ai3</Val>
+</String>
+</Array>
+<I32>
+<Name>input terminal configuration</Name>
+<Val>-1</Val>
+</I32>
+<I32>
+<Name>current excitation source</Name>
+<Val>10200</Val>
+</I32>
+<I32>
+<Name>sensitivity units</Name>
+<Val>12509</Val>
+</I32>
+<I32>
+<Name>units</Name>
+<Val>10186</Val>
+</I32>
+</Cluster>
+</LVData>

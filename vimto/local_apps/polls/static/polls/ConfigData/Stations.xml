@@ -1,0 +1,133 @@
+<?xml version='1.0' standalone='yes' ?>
+<Stationslist>
+<Station num='0'>
+  <lat>52.478732</lat>
+  <lng>-1.899240</lng>
+  <nme>Grand Central New Street</nme>
+</Station>
+<Station num='1'>
+  <lat>52.479932</lat>
+  <lng>-1.897152</lng>
+  <nme>Corporation Street</nme>
+</Station>
+<Station num='2'>
+  <lat>52.481887</lat>
+  <lng>-1.896281</lng>
+  <nme>Bull Street</nme>
+</Station>
+<Station num='3'>
+  <lat>52.483556</lat>
+  <lng>-1.899273</lng>
+  <nme>Birmingham, Snow Hill</nme>
+</Station>
+<Station num='4'>
+  <lat>52.486663</lat>
+  <lng>-1.903911</lng>
+  <nme>St. Pauls</nme>
+</Station>
+<Station num='5'>
+  <lat>52.489686</lat>
+  <lng>-1.913182</lng>
+  <nme>Jewellery Quarter</nme>
+</Station>
+<Station num='6'>
+  <lat>52.496907</lat>
+  <lng>-1.931041</lng>
+  <nme>Soho, Benson Road</nme>
+</Station>
+<Station num='7'>
+  <lat>52.498867</lat>
+  <lng>-1.938733</lng>
+  <nme>Winson Green, Outer Circle</nme>
+</Station>
+<Station num='8'>
+  <lat>52.502373</lat>
+  <lng>-1.951652</lng>
+  <nme>Handsworth, Booth Street</nme>
+</Station>
+<Station num='9'>
+  <lat>52.505723</lat>
+  <lng>-1.964655</lng>
+  <nme>The Hawthorns</nme>
+</Station>
+<Station num='10'>
+  <lat>52.508779</lat>
+  <lng>-1.982677</lng>
+  <nme>Kenrick Park</nme>
+</Station>
+<Station num='11'>
+  <lat>52.511784</lat>
+  <lng>-1.988073</lng>
+  <nme>Trinity Way</nme>
+</Station>
+<Station num='12'>
+  <lat>52.516604</lat>
+  <lng>-1.994781</lng>
+  <nme>West Bromwich Central</nme>
+</Station>
+<Station num='13'>
+  <lat>52.518639</lat>
+  <lng>-1.999724</lng>
+  <nme>Lodge Road, West Bromwich Town Hall</nme>
+</Station>
+<Station num='14'>
+  <lat>52.520463</lat>
+  <lng>-2.004534</lng> 
+  <nme>Dartmouth Street </nme>
+</Station>
+<Station num='15'>
+  <lat>52.525122</lat>
+  <lng>-2.008589</lng>
+  <nme>Dudley Street, Guns Village</nme>
+</Station>
+<Station num='16'>
+  <lat>52.531002</lat>
+  <lng>-2.011202</lng>
+  <nme>Black Lake</nme>
+</Station>
+<Station num='17'>
+  <lat>52.548893</lat>
+  <lng>-2.025621</lng>
+  <nme>Wednesbury, Great Western Street</nme>
+</Station>
+<Station num='18'>
+  <lat>52.549482</lat>
+  <lng>-2.030593</lng>
+  <nme>Wednesbury Parkway</nme>
+</Station>
+<Station num='19'>
+  <lat>52.555668</lat>
+  <lng>-2.057287</lng>
+  <nme>Bradley Lane</nme>
+</Station>
+<Station num='20'>
+  <lat>52.559794</lat>
+  <lng>-2.065500</lng>
+  <nme>Loxdale</nme>
+</Station>
+<Station num='21'>
+  <lat>52.565810</lat>
+  <lng>-2.074917</lng>
+  <nme>Bilston Central</nme>
+</Station>
+<Station num='22'>
+  <lat>52.567891</lat>
+  <lng>-2.080698</lng>
+  <nme>The Crescent</nme>
+</Station>
+<Station num='23'>
+  <lat>52.571903</lat>
+  <lng>-2.098076</lng>
+  <nme>Priestfield</nme>
+</Station>
+<Station num='24'>
+  <lat>52.581056</lat>
+  <lng>-2.116881</lng>
+  <nme>The Royal</nme>
+</Station>
+<Station num='25'>
+  <lat>52.584081</lat>
+  <lng>-2.124243</lng>
+  <nme>Wolverhampton, St. Georges</nme>
+</Station> 
+</Stationslist>

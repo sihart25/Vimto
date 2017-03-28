@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block header_css %}
+	<style>
+		.disabled {
+		    color: grey;
+		}
+	</style> 
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://code.jquery.com/ui/1.12.0/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	{% if user.is_authenticated %}
+	    {% include "DropDown.html" %}
+		<h2>{{ title }}</h2>
+		<h3>{{ message }}</h3>
+		<form method="post" action="/polls/button/add/">
+		<table>
+			<tr>
+				<td>Enter A:</td>
+				<td><input type="text" class="form-control" name="RangeA"/></td>
+		</tr>
+		<tr>
+			<td>Enter B:</td>
+			<td><input type="text" class="form-control" name="RangeB"/></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<button id="submit"   class="btn btn-success">Submit Form</button>
+			</td>
+			<td><button id="user" class="btn btn-lg"><span class = "glyphicon glyphicon-user"></span></button></td> 
+			</tr>
+		</table>
+		
+		
+		
+		</form>	
+	{% else %}
+	    	<strong>Please login to run calculations.</strong>
+	{% endif %}
+</div>
+<p>&copy; {{ year }} - Application</p>
+{% endblock %} 
+
+
+{% block footer_js %}
+ 
+
+{% endblock %}

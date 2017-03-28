@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block header_css %}
+	<style>
+		.disabled {
+		    color: grey;
+		}
+	</style> 
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://code.jquery.com/ui/1.12.0/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+	{% if user.is_authenticated %}
+	    {% include "DropDown.html" %}
+	    <h2>{{ message }}</h2>
+		<button id="run" type="button" class="btn btn-success">RUN</button>
+		<div class="row">
+		 
+		<!-- FRONT PAGE JUMBOTRON -->
+		<header style="margin-top:-25px;">
+			<div class="jumbotron">
+				<div class="container">
+					<div class="row text-center">
+						<div class="col-xs-12">
+							<p><strong>VIMTO</strong></p>
+
+ 
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	<div class="Row">  
+		<div id="map" style="height: 400px; width: 400px"></div>   
+	</div>	
+	<div class="Row"> 
+	<p>Count numbers: <output id="result"></output></p>
+	<button onclick="startWorker()">Start Worker</button>
+	<button onclick="stopWorker()">Stop Worker</button>
+	<br><br> 
+	</div>	
+		 
+		</div>
+	
+	    <div id="results" class="row"></div>
+    {% else %}
+    	<strong>Please login to run calculations.</strong>
+    {% endif %}
+</div>
+<p>&copy; {{ year }} - Application</p>
+{% endblock %}
+
+{% block footer_js %}
+
+	{% if user.is_authenticated %}
+<script> 
+ 
+var w;
+var map;      // global variable for map object
+ 
+var global = {};
+
+
+function getColor(d) {
+	    return d > 10.00 ? '#800026' :
+    	       d > 7.50  ? '#BD0026' :
+    	       d > 5.00  ? '#E31A1C' :
+        	   d > 4.00  ? '#FC4E2A' :
+        	   d > 3.00   ? '#FD8D3C' :
+        	   d > 2.00   ? '#FEB24C' :
+        	   d > 1.00   ? '#FED976' :
+        	   d > 0.50   ? '#FFEDA0' :
+        	   d > 0.25   ? '#f9ffa0' :
+                      '#FFFF00';
+}
+
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+ 
+function startWorker() {
+    if(typeof(Worker) !== "undefined") {
+        if(typeof(w) == "undefined") {
+            w = new Worker("{% static "polls/Scripts/demo_workers.js" %}");
+        }
+        w.onmessage = function(event) {
+            document.getElementById("result").innerHTML = event.data;
+            
+            var res = event.data;  
+            
+			console.log(sectionlat[res],sectionlng[res]);
+            moveToLocation(sectionlat[res],sectionlng[res]);
+        };
+    } else {
+        document.getElementById("result").innerHTML = "Sorry! No Web Worker support.";
+    }
+}
+
+function stopWorker() {
+    w.terminate();
+    w = undefined;
+}
+
+ 
+function initMap() {  
+		global.coords = new google.maps.LatLng(
+		        sectionlat[0],
+		        sectionlng[1]
+		    );
+    	map = new google.maps.Map(document.getElementById('map'), {	zoom: 18, center: global.coords });
+        var TramPlanCoordinates = [];
+
+		for (i = 1; i < (sectionlat.length); i++) { 
+    	   
+    		var TramPlanCoordinates = [];
+    	    TramPlanCoordinates.push(new google.maps.LatLng(sectionlat[i-1],sectionlng[i-1])); 
+    	    TramPlanCoordinates.push(new google.maps.LatLng(sectionlat[i],sectionlng[i]));
+    	    var TramPath = new google.maps.Polyline({path:TramPlanCoordinates,geodesic: true,strokeColor:getColor(randomIntFromInterval(0,10)),strokeOpacity: 1.0,strokeWeight: 2});
+    		TramPath.setMap(map);
+    	} 
+
+} 
+  
+function moveToLocation(lat, lng){ 
+	    var center = new google.maps.LatLng(lat, lng);
+	     map.panTo(center); 
+}
+ 
+
+</script>
+<!--""-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key= &callback=initMap" type="text/javascript"></script>
+{% else %}
+	<script>Please login to run calculations.</script>
+{% endif %}
+{% endblock %}

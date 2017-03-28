@@ -1,0 +1,51 @@
+{% extends "base.html" %} 
+{% block content %}
+	<div class="container-fluid">
+	<div class="row col-md-6">
+
+		{% if form.errors %}
+		<div class="alert alert-danger" role="alert">
+			<p>The username and password provided is not valid. Please try again with valid credentials.</p>
+		</div>
+		{% endif %}
+
+		<form class="form-horizontal" role="form" id="login_form"
+			method="POST"
+			action="{% url 'accounts:vimto_auth.views.login_user' %}">
+			{% csrf_token %}
+
+			<div class="panel panel-default">
+				<div class="panel-heading">LOGIN</div>
+				<div class="panel-body">
+					<div class="form-group form-group-md row">
+						<label for="id_username" class="control-label col-md-2">{{ form.username.label_tag }}</label>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="id_username"
+								name="username" placeholder="Username">
+						</div>
+					</div>
+
+					<div class="form-group form-group-md  row">
+						<label for="id_password" class="control-label col-md-2">{{ form.password.label_tag }}</label>
+						<div class="col-md-10">
+							<input type="password" class="form-control" id="id_password"
+								name="password" placeholder="Password">
+						</div>
+					</div>
+
+					<div class="form-group  form-group-md row">
+						<div class="col-md-offset-2 col-md-10">
+							<button type="submit" class="btn btn-default">Sign in</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="well well-sm">
+			<span class="help-block">New users, please <strong><a href="/accounts/register">register</a></strong>.</span>
+			<span class="help-block">If you have forgotten your password, click to <strong><a href="/accounts/user/password/reset/">reset password</a></strong>.
+			</span>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% load static %}
+{% block header_css %}
+	<style>
+		.disabled {
+		    color: grey;
+		}
+	</style> 
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://code.jquery.com/ui/1.12.0/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+	{% if user.is_authenticated %}
+	    {% include "DropDown.html" %}
+	    <div class="row">
+	        <div class="col-md-2">
+	            <span class="label label-default">Station</span>
+	            <select class="selectpicker btn-info" style="width:190px;">
+	                {% for key, value in Stations.items %}
+	                    {% ifequal value.nme selected_station.nme %}
+	                        <option value="{{key}}" selected="selected">{{key}}-{{value.nme}}</option>
+	                    {% else %}
+	                        <option value="{{key}}">{{key}}-{{value.nme}}</option>
+	                    {% endifequal %}
+	                {% endfor %}
+	            </select>
+	        </div>
+	        <div class="col-md-10">
+				<div class="tabbable" id="tabs-366812">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#panel-455353" data-toggle="tab">Maps</a>
+						</li>
+						<li>
+							<a href="#panel-198678" data-toggle="tab">Stations</a>
+						</li>
+						<li>
+							<a href="#panel-198690" data-toggle="tab">Graphs</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="panel-455353">
+							<div id="map" style="height: 400px; width: 400px"></div>     
+							    <div class="player">
+						        	<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+						        	<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+						          	<div class="jp-type-playlist">
+						           		<div class="background">   
+							            	<div class="jp-gui jp-interface">
+							              		<div class="jp-controls">
+							                  		<button class="jp-previous" role="button" tabindex="0">
+							                    		<i class="fa fa-fast-backward"></i>
+							                  		</button>
+							                  		<button class="jp-step-backward" role="button" tabindex="0">
+							                    		<i class="fa fa-step-backward"></i>
+							                  		</button> 
+							                  		<button class="jp-backward" role="button" tabindex="0">
+							                    		<i class="fa fa-backward"></i>
+							                  		</button> 
+							                  		<button class="jp-play" role="button" tabindex="0">
+							                    		<i class="fa fa-play"></i>
+							                  		</button>
+							                  		<button class="jp-forward" role="button" tabindex="0">
+							                    		<i class="fa fa-forward"></i>
+							                  		</button> 
+							                  		<button class="jp-step-forward" role="button" tabindex="0">
+							                    		<i class="fa fa-step-forward"></i>
+							                  		</button>
+							                  		<button class="jp-next" role="button" tabindex="0">
+							                    		<i class="fa fa-fast-forward"></i>
+							                  		</button>
+							              		</div>
+									            <div class="jp-progress">
+									                <div class="jp-seek-bar">
+									                  <div class="jp-play-bar"></div>
+									                </div>
+									            </div>
+						                        <div class="jp-time-holder">
+									                <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+						        			        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+						              			</div>
+						            		</div>
+							            	<div class="jp-playlist">
+							            	</div>
+						          		</div>
+						          </div>
+								</div>	
+							</div>	
+		            
+	                	</div>
+	                	<div class="tab-pane" id="panel-198678"> 
+	                    	<table summary="no_orderDate">
+	                    	<tr><th>Number</th><th>Station</th><th>Latitude</th><th>Longditude</th>
+	                    		{% for key, value in Stations.items %}
+	                                 <tr><td>{{value.num}}</td> 
+	                                     <td>{{value.nme}}</td> 
+	                                     <td>{{value.lat}}</td> 
+	                                     <td>{{value.lng}}</td> 
+	                                </tr>
+	                    		{% endfor %}
+	                    	</table>
+						</div>
+	                	<div class="tab-pane" id="panel-198690"> 
+	                    	<div id="graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+
+	{% else %}
+    	<strong>Please login to run calculations.</strong>
+    {% endif %}
+</div>
+<p>&copy; {{ year }} - Application</p>
+{% endblock %}
+
+{% block footer_js %}
+ 
+<script src="{% static "polls/Scripts/Highcharts/js/highcharts.js" %}"></script>
+<script src="{% static "polls/Scripts/Highcharts/js/highcharts-more.js" %}"></script>
+<script src="{% static "polls/Scripts/Highcharts/js/modules/exporting.js" %}"></script>  
+
+ <script type="text/javascript">
+<!--
+
+//-->
+
+var map;      // global variable for map object
+
+function getColor(d) {
+	    return d > 10.00 ? '#800026' :
+    	       d > 7.50  ? '#BD0026' :
+    	       d > 5.00  ? '#E31A1C' :
+        	   d > 4.00  ? '#FC4E2A' :
+        	   d > 3.00   ? '#FD8D3C' :
+        	   d > 2.00   ? '#FEB24C' :
+        	   d > 1.00   ? '#FED976' :
+        	   d > 0.50   ? '#FFEDA0' :
+        	   d > 0.25   ? '#f9ffa0' :
+                      '#FFFF00';
+}
+
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+function initMap() {
+		var wlv = { lat: 52.584081, lng: -2.124243 };
+    	map = new google.maps.Map(document.getElementById('map'), {	zoom: 18, center: wlv });
+    	{% for key, value in Stations.items %}
+    	marker = new google.maps.Marker({
+        	position: new google.maps.LatLng({{value.lat}}, {{value.lng}}),
+        	map: map
+    	});
+    	{% endfor %}
+    	
+    	var sections = 10;
+    	var deltalng = (-2.124243 + 2.116881 )/sections;
+    	var deltalat = ( 52.584081 - 52.581056 )/sections;
+    	var newlat =52.581056;
+    	var newlng = -2.116881;
+    	var TramPlanCoordinates = [];
+    	var oldlat = newlat;
+    	var oldlng = newlng;
+
+		for (i = 0; i < sections; i++) { 
+    	    newlat = oldlat + deltalat;
+    	    newlng = oldlng + deltalng;
+    	    
+    		var TramPlanCoordinates = [];
+    	    TramPlanCoordinates.push(new google.maps.LatLng(oldlat,oldlng)); 
+    	    TramPlanCoordinates.push(new google.maps.LatLng(newlat,newlng));
+    	    oldlat = newlat;
+    	    oldlng = newlng;
+    	    var TramPath = new google.maps.Polyline({path:TramPlanCoordinates,geodesic: true,strokeColor:getColor(randomIntFromInterval(0,10)),strokeOpacity: 1.0,strokeWeight: 2});
+    		TramPath.setMap(map);
+    	} 
+    	  
+		
+}
+
+
+
+$(function () {
+            
+    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+            
+       
+        $('#graph').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: '{{ subtitle }}' 
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Accln'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                type: 'area',
+                name: '{{ title }}',
+                data: data
+            }]
+        });
+    });
+});
+
+function moveToLocation(lat, lng){
+	<!-- 
+	    var center = new google.maps.LatLng(lat, lng);
+	     map.panTo(center);
+	-->
+}
+   
+$(function() { 
+  $('.selectpicker').on('change', function(){
+    var selected = $(this).find("option:selected").val();
+    console.log(":"+selected+":"); 
+    
+  });
+  
+});
+
+
+</script>
+<!--""" API KEY  """-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key= &callback=initMap" type="text/javascript"></script>
+{% endblock %}
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

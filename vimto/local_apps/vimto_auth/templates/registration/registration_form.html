@@ -1,0 +1,139 @@
+{% extends "base.html" %} 
+
+{% block footer_js %}
+ <script language="javascript" type="text/javascript">
+$(document).ready(function() {
+     //for registration form
+	$('#id_is_terms_agreed').click(function() {
+		//console.log('is terms clicked');
+		if ($(this).is(':checked')) {
+			$('#register').removeAttr('disabled');
+			$('#register').removeClass("commandExButtonDisabled");
+
+		} else {
+			$('#register').attr('disabled', 'disabled');
+			$('#register').addClass("commandExButtonDisabled");
+		}
+	});
+});    
+</script>
+{% endblock footer_js %}
+
+{% block header_css %}
+<style type="text/css">
+/* Style for T&Cs */
+
+div.terms_n_conditions { 
+	height:200px; 
+	border:1px solid #ccc; 
+	background:#f2f2f2; 
+	overflow-x:hidden; 
+	overflow-y:auto; 
+	font-size: medium; 
+}
+
+.commandExButtonDisabled {
+    color: gray;
+}
+
+.errorText {
+	color:  red;
+	font-weight: bold;
+}
+</style>
+{% endblock header_css %}
+
+{% block title %}Registration{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row col-md-12">
+
+	<div class="panel panel-default">
+  		<div class="panel-heading">New User Registration</div>
+  		<div class="panel-body">
+
+	<form class="form-horizontal" role="form" method="POST" action="/accounts/register/">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+        	<p>{{ form.errors }}</p>
+        </div>
+    	{% endif %}
+
+		{% load form_tags %}
+		{% with 'first_name last_name username email' as list %}
+			{% for i in list.split %}
+		    	<div class="form-group form-group-md row">
+			    	<label for="id_{{ i }}" class="control-label col-md-2">{{ i|replace_underscore|title }}</label>
+			    	<div class="col-md-4">
+			     	 <input type="text" class="form-control" id="id_{{ i }}" name="{{ i }}"
+			     	 	value="{{ form|form_field_value:i }}">
+			       	</div>
+			       	<span style="color:red;">*</span>
+			  	</div>
+		  	{% endfor %}
+		{% endwith %}
+
+	  	
+	  	<div class="form-group form-group-md row">
+	    	<label for="id_job_title" class="control-label col-md-2">Job Title:</label>
+	    	<div class="col-md-4">    	
+	    	{{ form.job_title }}
+	    	<span style="color:red;">*</span>
+	    	</div>
+	  	</div>
+
+	  	<div class="form-group form-group-md row">
+	    	<label for="id_job_title" class="control-label col-md-2">Country:</label>
+	    	<div class="col-md-4">    	
+	    	{{ form.country }}
+	    	<span style="color:red;">*</span>
+	       	</div>
+	  	</div>
+
+	  	<div class="form-group form-group-md  row">
+	    	<label for="id_password1" class="control-label col-md-2">{{ form.password1.label_tag }}</label>
+	    	<div class="col-md-4">
+	     	 <input type="password" class="form-control" id="id_password1" name="password1" placeholder="password">
+	    	</div>
+	     	<span style="color:red;">*</span>
+	  	</div>
+
+	  	<div class="form-group form-group-md  row">
+	    	<label for="id_password2" class="control-label col-md-2">{{ form.password2.label_tag }}</label>
+	    	<div class="col-md-4">
+	     	 <input type="password" class="form-control" id="id_password2" name="password2" placeholder="password">
+	    	</div>
+	    	<span style="color:red;">*</span>
+	  	</div>
+
+	  	<div class="form-group form-group-md  row">
+  			<label for="terms_n_conditions" class="control-label col-md-2">BOADICEA Software Agreement:</label>
+  			<div id="terms_conditions_text" style="overflow: auto; height : 200px; background-color: #D3D3D3;padding:10px;" class="col-md-6">
+  				<div style="white-space: pre-wrap;">{% include "registration/agreement.html" %}</div>
+  			</div>
+		</div>
+
+        <div class="form-group form-group-md row">
+	    	<label for="id_is_terms_agreed" class="control-label col-md-offset-2">{{ form.is_terms_agreed.label_tag }}
+	     	 <input type="checkbox" id="id_is_terms_agreed" name="is_terms_agreed">
+	     	 <span style="color:red;">*</span>
+	    	</label>
+	  	</div>
+	  		
+	  	<div class="form-group  form-group-md row">
+		    <div class="col-md-offset-2 col-md-4">
+		       <button id="register" type="submit" value="Register and Login" disabled="disabled" type="submit" class="btn btn-default commandExButtonDisabled">Register</button>
+		     </div>
+	   	</div>  
+    </form>
+    
+    </div>
+    </div>
+    
+ </div>
+ </div>
+
+{% endblock %}

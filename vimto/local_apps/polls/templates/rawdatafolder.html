@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block header_css %}
+	<style>
+		.disabled {
+		    color: grey;
+		}
+		
+		td.highlight {
+    		background-color: whitesmoke !important;
+		}
+	</style> 
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://code.jquery.com/ui/1.12.0/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/Scripts/daterangepicker.css' %}" />  
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+	{% if user.is_authenticated %}
+	    {% include "DropDown.html" %}
+	    <div class="row">
+	        <h2>{{ message }}</h2> 
+	        <div class="col-md-4">
+		        <div class="row">
+					<div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%">
+		    			<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+		    			<span></span>
+					</div>
+				</div> 	
+		    	<div class="row">
+		        	<h4 id="selectedrange"></h4>
+		        	<h4><span>{{mintime}}</span>-<span>{{maxtime}}</span></h4>
+			        <table  id="example" class="row-border hover order-column" cellspacing="0">
+		    	        {% for f in rawdatafilesTDMS %}
+							<tr id="{{ f }}row" >
+		        		        <td>{{ f }}</td>
+		            		    <td><button id="{{ f }}rm" class="btn  btn-xs removefile"><span class = "fa fa-remove"></span></button></td>
+		            		    <td><button id="{{ f }}sm" class="btn  btn-xs summaryfile"><span class = "fa fa-file-text-o"></span></button></td>
+		                		<td><button id="{{ f }}pl" class="btn  btn-xs processfile"><span class = "fa fa-play"></span></button></td>
+		                	</tr>
+		            	{% endfor %}
+		        	</table>
+		    	</div>
+	        </div>
+	        <div class="col-md-6"> 
+	           <div class="panel panel-default">
+				  <div class="panel-heading">File Sumary</div>
+				  <div class="panel-body"> 
+				    <table 	class="table">
+ 						 <thead class="thead-inverse">
+    						<th><strong>Name: </strong></th> 
+							<th><strong>Information</strong></th>    
+  						</thead>
+  						 <tbody>
+				  		{% for s in sections %} 
+				  		  	<th scope="row">{{ s }}</th>
+				  		     <tr id="{{ s }}row" > 
+		        		        <td><button id="{{ s }}sw"  type="button" class="btn btn-primary btn PlaySection"> <span class = "fa fa-subway"></span></button>
+		                		  <button id="{{ s }}ed" class="btn  btn editfile"><span class = "fa fa-edit"></span></button>
+		                		</td>
+		        		        <td>
+		        		        	<table>
+				    				<tr>
+		        		        		<th><strong>Direction: </strong></th> 
+										<th><strong>startlat:</strong></th>  
+										<th><strong>startlng:</strong></th>  
+										<th><strong>endlat:</strong></th>  
+										<th><strong>endlng:</strong></th> 
+									</tr>
+		        		        	<td style="padding:0 5px 0 5px;">WLV_BHM</td>     
+								    <td style="padding:0 5px 0 5px;"> 52.581056</td>  
+								    <td style="padding:0 5px 0 5px;"> -2.116881 </td>  
+								    <td style="padding:0 5px 0 5px;"> 52.584081</td>  
+								    <td style="padding:0 5px 0 5px;"> -2.124243</td> 
+								   </table>   
+								</td> 
+		                	 </tr>
+		            	{% endfor %}
+  						 </tbody>
+		        	</table> 
+				  </div>
+			  </div>
+			</div>
+		</div>
+	{% else %}
+    	<strong>Please login to run calculations.</strong>
+    {% endif %}
+</div>
+<p>&copy; {{ year }} - Application</p>
+{% endblock %}
+
+{% block footer_js %}
+
+<script type="text/javascript" src ="{% static 'polls/Scripts/moment.js' %}"></script>
+<script type="text/javascript" src="{% static 'polls/Scripts/daterangepicker.js' %}"></script>
+<script type="text/javascript">  
+ 
+$(function() {
+
+
+
+    var start = moment().subtract(29, 'days');
+
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+
+    }, cb);
+    
+    cb(start, end);
+    
+});
+
+
+
+$(".summaryfile").click('click', function() {
+   var btn = $(this);
+   if (btn.attr('id') != undefined )
+   {
+	    var stringID = btn.attr('id');
+		console.log('summaryfile-click:'+stringID);   
+   }
+	     
+ });
+
+$(".removefile").click('click', function() {
+   var btn = $(this);
+   if (btn.attr('id') != undefined )
+   {
+	    var stringID = btn.attr('id');
+		console.log('removefile-click:'+stringID);   
+		var res = stringID.replace("rm", "row"); 
+   }
+	     
+ });
+
+$(".processfile").click('click', function() {
+   var btn = $(this);
+   if (btn.attr('id') != undefined )
+   {
+	    var stringID = btn.attr('id');
+		console.log('processfile-click:'+stringID);   
+   }
+	     
+ });
+
+$(".playfile").click('click', function() {
+   var btn = $(this);
+   if (btn.attr('id') != undefined )
+   {
+	    var stringID = btn.attr('id');
+		console.log('playfile-click:'+stringID);   
+   }
+	     
+ });
+ 
+
+$(".editfile").click('click', function() {
+   var btn = $(this);
+   if (btn.attr('id') != undefined )
+   {
+	    var stringID = btn.attr('id');
+		console.log('editfile-click:'+stringID);   
+   }
+	     
+ }); 
+ 
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'mouseenter', 'td', function () {
+        var colIdx = table.cell(this).index().column;
+
+        $( table.cells().nodes() ).removeClass( 'highlight' );
+        $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+});
+ 
+</script>
+{% endblock %} 
+
+ 
+ 

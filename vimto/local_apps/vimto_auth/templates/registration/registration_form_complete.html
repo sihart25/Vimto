@@ -1,0 +1,30 @@
+{% extends "base.html"%} 
+{% block title %}Registration{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+<div class="row col-md-12">
+
+{% if success_registration %}
+  <h2>Welcome <i>{{ first_name }} {{ last_name }}</i></h2>
+  Thank you for registering.
+  You have been sent an email to your registered email address <strong>{{ email }}</strong> with an activation link.
+  Please click the link to activate your account. 
+{% elif failure_registration %}
+  <h2>Welcome <i>{{ first_name }} {{ last_name }}</i></h2>
+ Unfortunately, the registration process failed. Please try to register again.
+{% elif success_activation %}
+  <h2>Welcome <i>{{ first_name }} {{ last_name }}</i></h2>
+  Your account has now been activated and you are a registered user (username: {{ username }}).
+{% elif expired %}
+  <h2>Welcome <i>{{ first_name }} {{ last_name }}</i></h2>
+  Unfortunately, your activation key has expired. Please register again.
+{% elif has_account %}
+  <h2>Welcome <i>{{ first_name }} {{ last_name }}</i></h2>
+  Your account has been activated already. Please login using your username: {{ username }}
+{% endif %}
+
+</div>
+</div>
+
+{% endblock %}

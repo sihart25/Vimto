@@ -1,0 +1,10 @@
+{{ form.non_field_errors }}
+<form method="post">
+		{% csrf_token %}
+		<fieldset disabled>
+		<p><button id="node_save" type="button" class="btn btn-success">Save</button></p>
+		<div class="table-responsive">
+		<table class="table table-condensed">{{ person_form.as_table }}</table>
+		</div>
+		</fieldset>
+</form>

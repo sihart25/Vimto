@@ -1,0 +1,150 @@
+
+
+
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block header_css %}
+<style>
+  .disabled {
+	color: grey;
+  } 
+  .progress {
+   width:50%;
+   background:yellow;
+  }
+  .bar {
+   height:15px;
+   width:0%;
+   background:tomato;
+   text-align:right;
+  }
+ </style>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://code.jquery.com/ui/1.12.0/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+	{% if user.is_authenticated %}
+	    {% include "DropDown.html" %}
+		<h3>{{ message }}</h3> 
+<!-- 		<form method="post" action="/polls/celery/do_task">
+		<table>
+			<tr>
+				<td>Enter A:</td>
+				<td><input type="text" class="form-control" name="RangeA"/></td>
+			</tr>
+			<tr>
+				<td>Enter B:</td>
+				<td><input type="text" class="form-control" name="RangeB"/></td>
+			</tr>
+			<tr>
+			<td>&nbsp;</td>
+			<td>
+				<button id="submit"   class="btn btn-success">Submit Form</button>
+			</td>
+			<td><button id="user" class="btn btn-lg"><span class = "glyphicon glyphicon-user"></span></button></td> 
+			</tr>
+		</table>
+		</form>
+  -->
+
+
+ 
+ <h1>{{ ProcessFileName }}</h1>
+  
+  <div id="action">
+   <button id="do-task">Click here!</button>
+  </div>
+  
+  <div class="progress_container">
+   
+   <div class="current-task">
+    <h4>{% if task_id %} Task ID: {{ task_id }} {% endif %}</h4>
+   </div>
+   
+   <div class="status"></div>
+   {% if task_id %}
+   <div class="progress">
+    <div class="bar"></div>
+   </div>
+   {% endif %}
+  </div>
+    
+	{% else %}
+    	<strong>Please login to run calculations.</strong>
+    {% endif %}
+</div>
+<p>&copy; {{ year }} - Application</p>
+{% endblock %} 
+
+{% block footer_js %}
+ 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+ <script type="text/javascript"> 
+ {% if task_id %}
+ $(function() {
+   
+   // pole state of the current task
+   var PollState = function(task_id) {
+    $.ajax({
+     url: "poll_state",
+     type: "POST",
+     data: "task_id=" + task_id,
+    }).done(function(task){
+     console.log(task);
+     if (task.process_percent) {
+      $('.bar').css({'width': task.process_percent + '%'});
+      $('.bar').html(task.process_percent + '%')
+     } else {
+      $('.status').html(task);
+     };
+     
+     // create the infinite loop of Ajax calls to check the state
+     // of the current task
+     PollState(task_id);
+    });
+   }
+   
+   PollState('{{ task_id }}');
+  }); 
+ {% endif %}
+ 
+ 
+  var success = function(data){
+	  $.ajax({
+	      url: "",
+	      context: document.body,
+	      success: function(s, x) {
+	       console.log('success-success');
+	       $(this).html(s);
+	      }
+	     }); 
+  };
+ 
+  
+  $('#do-task').click( function() {
+	console.log('do-task'); 
+	
+
+  
+	$.ajax({
+		  type: "POST",
+		  url: "do_task",
+		  data: {},
+		  success: success
+		});
+	  
+
+	
+	// Note: function(data) is the callback function to be called as a successful request.
+	// The data, callback function and dataType are optional.
+	
+  });
+ </script>
+ 
+
+{% endblock %}
